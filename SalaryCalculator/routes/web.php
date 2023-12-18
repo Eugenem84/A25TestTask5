@@ -20,4 +20,3 @@ use App\Models\Employee;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/employees', [EmployeeController::class, 'create']);

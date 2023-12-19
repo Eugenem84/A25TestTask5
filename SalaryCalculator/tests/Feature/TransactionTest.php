@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Employee;
 use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,10 +10,11 @@ use Tests\TestCase;
 
 class TransactionTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     public function testStoreTransaction()
     {
+        Employee::factory()->create(['id' => 1]);
         // данные для транзации
         $data = [
             'employee_id' => 1,
@@ -27,16 +29,5 @@ class TransactionTest extends TestCase
             'employee_id' => 1,
             'hours' => 8,
         ]);
-        //пробуем получить последнюю созданную транзакцию
-        $transaction = Transaction::first();
-//
-//        //проверяем формат
-//        $response->assertJson([
-//            'id' => $transaction-id,
-//            'employee_id' => 1,
-//            'hours' => 8,
-//            'paid' => false,
-//        ]);
-
     }
 }

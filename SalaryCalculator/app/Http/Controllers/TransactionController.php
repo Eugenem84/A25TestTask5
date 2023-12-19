@@ -20,12 +20,15 @@ class TransactionController
 
     public function getUnpaidSalaries()
     {
+        $hourlyRate = 1000;
+
         $unpaidSalaries = Transaction::where('paid', false)
             ->get()
             ->groupBy('employee_id')
-            ->map(function ($transactions){
-               return $transactions->sum('hours');
-            }); //получение неоплаченных зарплат для каждого сотрудника
+            ->map(function ($transactions) use ($hourlyRate) {
+               return $transactions->sum('hours') * $hourlyRate;
+            }); //получение неоплаченных часов для каждого сотрудника
+        info($unpaidSalaries);
         return response()->json($unpaidSalaries); //возвращаем неоплаченные зарплаты
     }
 
